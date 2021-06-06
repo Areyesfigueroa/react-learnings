@@ -1,15 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement } from "./action";
+import Posts from "./Posts";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const count = useSelector((state) => state);
   return (
     <div>
-      <h1>{count}</h1>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
-      <button onClick={() => dispatch(increment())}>Increment</button>
+      <Posts />
     </div>
   );
 };

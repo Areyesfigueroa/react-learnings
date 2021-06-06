@@ -3,38 +3,12 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import logger from "redux-logger";
 
-import { applyMiddleware, createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { counterReducer } from "./reducer";
+import postsReducer from "./reducer";
+import thunk from "redux-thunk";
 
-const myLogger = (store) => (next) => (action) => {
-  next(action);
-};
-
-const secondMiddleware = (store) => (next) => (action) => {
-  next(action);
-};
-
-const capAtTen = (store) => (next) => (action) => {
-  if (store.getState() >= 10) {
-    return next({ type: "DECREMENT" });
-  }
-  next(action);
-};
-
-// const myLogger = (store) => {
-//   return (next) => {
-//     return (action) => {
-//       console.log("middleware ran");
-//       next(action);
-//     };
-//   };
-// };
-
-const store = createStore(
-  counterReducer,
-  applyMiddleware(myLogger, secondMiddleware, capAtTen, logger)
-);
+const store = createStore(postsReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
   <Provider store={store}>
